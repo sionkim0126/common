@@ -7,8 +7,8 @@ plugins {
 //    id 'com.github.johnrengelman.shadow' version '8.1.1'
 
 
-//    id 'org.springframework.boot' version '3.5.13'
-//    id 'io.spring.dependency-management' version '1.1.7'
+    id 'org.springframework.boot' version '3.5.13'
+    id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group = 'com.github.sionkim0126'
@@ -18,8 +18,8 @@ description = 'common'
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
-        bootJar { enabled = false } // 실행 가능한 jar 생성 비활성화 (라이브러리이므로 필요 없음)
-        jar { enabled = true } // 일반 jar 생성 활성화
+//        bootJar { enabled = false } // 실행 가능한 jar 생성 비활성화 (라이브러리이므로 필요 없음)
+//        jar { enabled = true } // 일반 jar 생성 활성화
     }
 }
 
@@ -32,25 +32,25 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 publishing {
     publications {
-        gpr(MavenPublication){
-            form components.java // java로 만든 jar를 배포 대상으로 지정
+        gpr(MavenPublication) {
+            from components.java // java로 만든 jar를 배포 대상으로 지정
 //            artifact shadowJar // 빌드 아티팩트로 shadowJar 결과물 사용
             artifactId = 'common' //배포될 라이브러리 이름
         }
-
-        repositories{
-            maven{
-                name = "GitHubPackages"
-                url = uri("https://maven.pkg.github.com/sionkim0126/common")
-                credentials{
-                    username = System.getenv("GPR_USER")
-                    password = System.getenv("GPR_TOKEN")
-                }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/sionkim0126/common")
+            credentials{
+                username = System.getenv("GPR_USER")
+                password = System.getenv("GPR_TOKEN")
             }
         }
     }
