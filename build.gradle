@@ -1,5 +1,8 @@
 plugins {
-    id 'java'
+    id 'java-library' // 프로젝트를 자바 라이브러리로 설정(api 키워드 사용 가능)
+    id 'maven-publish' // 빌드된 아티팩트를 Maven저장소에 배포하기 위한 플러그 인
+//    id 'com.github.johnrengelman.shadow' version '8.1.1' // 모든 의존성을 포함한 Fat JAR를 생성하는 플러그인
+
     id 'org.springframework.boot' version '3.5.13'
     id 'io.spring.dependency-management' version '1.1.7'
 }
@@ -23,6 +26,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
+
+
 
 tasks.named('test') {
     useJUnitPlatform()
